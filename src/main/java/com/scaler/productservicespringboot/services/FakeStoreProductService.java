@@ -3,11 +3,15 @@ package com.scaler.productservicespringboot.services;
 import com.scaler.productservicespringboot.dto.FakeStoreResponse;
 import com.scaler.productservicespringboot.models.Category;
 import com.scaler.productservicespringboot.models.Product;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Primary
 public class FakeStoreProductService implements  ProductService{
 
     RestTemplate restTemplate = new RestTemplate();
