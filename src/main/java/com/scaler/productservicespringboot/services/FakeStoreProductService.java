@@ -3,6 +3,7 @@ package com.scaler.productservicespringboot.services;
 import com.scaler.productservicespringboot.dto.FakeStoreResponse;
 import com.scaler.productservicespringboot.models.Category;
 import com.scaler.productservicespringboot.models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +15,8 @@ import java.util.List;
 @Primary
 public class FakeStoreProductService implements  ProductService{
 
-    RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public Product getSingleProduct(int id) {
