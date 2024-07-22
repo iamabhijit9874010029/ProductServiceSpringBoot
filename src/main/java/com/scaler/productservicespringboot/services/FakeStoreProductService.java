@@ -1,6 +1,8 @@
 package com.scaler.productservicespringboot.services;
 
-import com.scaler.productservicespringboot.dto.FakeStoreResponse;
+import com.scaler.productservicespringboot.dto.FakeStorePOSTResponseDTO;
+import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
+import com.scaler.productservicespringboot.dto.FakeStoreResponseDTO;
 import com.scaler.productservicespringboot.models.Category;
 import com.scaler.productservicespringboot.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class FakeStoreProductService implements  ProductService{
 
     @Override
     public Product getSingleProduct(int id) {
-        FakeStoreResponse response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponse.class);
+        FakeStoreResponseDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponseDTO.class);
 
         Product product = new Product();
 
@@ -40,11 +42,11 @@ public class FakeStoreProductService implements  ProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        FakeStoreResponse[] responsesArray = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreResponse[].class);
+        FakeStoreResponseDTO[] responsesArray = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreResponseDTO[].class);
 
         List<Product> productList = new ArrayList<Product>();
 
-        for (FakeStoreResponse response : responsesArray) {
+        for (FakeStoreResponseDTO response : responsesArray) {
             Product product = new Product();
 
             product.setId(response.getId());
@@ -62,5 +64,31 @@ public class FakeStoreProductService implements  ProductService{
         }
 
         return productList;
+    }
+
+    @Override
+    public Product addProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public Product addProduct(FakeStoreRequestDTO fakeStoreRequestDTO) {
+        FakeStorePOSTResponseDTO addProductResponse = restTemplate.postForObject("https://fakestoreapi.com/products",
+                fakeStoreRequestDTO, FakeStorePOSTResponseDTO.class);
+
+        Product product = new Product();
+
+        product.setId(addProductResponse.getId());
+        product.setName(addProductResponse.getTitle());
+        product.setDescription(addProductResponse.getDescription());
+        product.setPrice(addProductResponse.getPrice());
+        product.setImgUrl(addProductResponse.getImage());
+
+        Category category = new Category();
+        category.setTitle(addProductResponse.getCategory());
+
+        product.setCategory(category);
+
+        return product;
     }
 }
