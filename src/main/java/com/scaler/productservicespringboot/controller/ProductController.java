@@ -17,7 +17,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products/{id}")
-    public Product getSingleProduct(@PathVariable("id") int id){
+    public Product getSingleProduct(@PathVariable("id") int id) throws Exception {
         Product product = productService.getSingleProduct(id);
         return product;
     }
