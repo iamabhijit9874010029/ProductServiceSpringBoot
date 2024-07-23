@@ -21,10 +21,15 @@ public class FakeStoreProductService implements  ProductService{
     RestTemplate restTemplate;
 
     @Override
-    public Product getSingleProduct(int id) {
+    public Product getSingleProduct(int id) throws Exception{
         FakeStoreResponseDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponseDTO.class);
 
-        Product product = convertResponseToProduct(response);
+        if(response == null){
+            throw new Exception("Product id "+ id + " not found");
+        }
+
+        Product product = response.toProduct();
+
         return product;
     }
 
@@ -35,7 +40,7 @@ public class FakeStoreProductService implements  ProductService{
         List<Product> productList = new ArrayList<Product>();
 
         for (FakeStoreResponseDTO response : responsesArray) {
-            Product product = convertResponseToProduct(response);
+            Product product = response.toProduct();
             productList.add(product);
         }
 
@@ -52,42 +57,9 @@ public class FakeStoreProductService implements  ProductService{
         FakeStorePOSTResponseDTO addProductResponse = restTemplate.postForObject("https://fakestoreapi.com/products",
                 fakeStoreRequestDTO, FakeStorePOSTResponseDTO.class);
 
-        Product product = convertPOSTResponseToProduct(addProductResponse);
+        Product product = addProductResponse.toProduct();
 
         return product;
     }
 
-    private Product convertResponseToProduct(FakeStoreResponseDTO response) {
-        Product product = new Product();
-
-        product.setId(response.getId());
-        product.setName(response.getTitle());
-        product.setDescription(response.getDescription());
-        product.setPrice(response.getPrice());
-        product.setImgUrl(response.getImage());
-
-        Category category = new Category();
-        category.setTitle(response.getCategory());
-
-        product.setCategory(category);
-
-        return product;
-    }
-
-    private Product convertPOSTResponseToProduct(FakeStorePOSTResponseDTO response) {
-        Product product = new Product();
-
-        product.setId(response.getId());
-        product.setName(response.getTitle());
-        product.setDescription(response.getDescription());
-        product.setPrice(response.getPrice());
-        product.setImgUrl(response.getImage());
-
-        Category category = new Category();
-        category.setTitle(response.getCategory());
-
-        product.setCategory(category);
-
-        return product;
-    }
 }
