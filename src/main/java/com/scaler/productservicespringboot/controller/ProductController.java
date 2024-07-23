@@ -1,6 +1,7 @@
 package com.scaler.productservicespringboot.controller;
 
 import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
+import com.scaler.productservicespringboot.dto.ProductResponseDTO;
 import com.scaler.productservicespringboot.models.Product;
 import com.scaler.productservicespringboot.services.FakeStoreProductService;
 import com.scaler.productservicespringboot.services.ProductService;
@@ -17,9 +18,20 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products/{id}")
-    public Product getSingleProduct(@PathVariable("id") int id) throws Exception {
-        Product product = productService.getSingleProduct(id);
-        return product;
+    public ProductResponseDTO getSingleProduct(@PathVariable("id") int id) throws Exception {
+        try {
+            Product product = productService.getSingleProduct(id);
+            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+            productResponseDTO.setProduct(product);
+            productResponseDTO.setResponseMessage("Success");
+            return productResponseDTO;
+        }
+        catch (Exception e) {
+            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+            productResponseDTO.setProduct(null);
+            productResponseDTO.setResponseMessage(e.getMessage());
+            return productResponseDTO;
+        }
     }
 
     @GetMapping("/products")
