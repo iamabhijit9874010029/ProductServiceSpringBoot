@@ -3,6 +3,7 @@ package com.scaler.productservicespringboot.services;
 import com.scaler.productservicespringboot.dto.FakeStorePOSTResponseDTO;
 import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
 import com.scaler.productservicespringboot.dto.FakeStoreResponseDTO;
+import com.scaler.productservicespringboot.exceptions.ProductNotFoundException;
 import com.scaler.productservicespringboot.models.Category;
 import com.scaler.productservicespringboot.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,11 @@ public class FakeStoreProductService implements  ProductService{
     RestTemplate restTemplate;
 
     @Override
-    public Product getSingleProduct(int id) throws Exception{
+    public Product getSingleProduct(int id) throws ProductNotFoundException {
         FakeStoreResponseDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponseDTO.class);
 
         if(response == null){
-            throw new Exception("Product id "+ id + " not found");
+            throw new ProductNotFoundException("Product id "+ id + " not found");
         }
 
         Product product = response.toProduct();

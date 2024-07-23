@@ -2,6 +2,7 @@ package com.scaler.productservicespringboot.controller;
 
 import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
 import com.scaler.productservicespringboot.dto.ProductResponseDTO;
+import com.scaler.productservicespringboot.exceptions.ProductNotFoundException;
 import com.scaler.productservicespringboot.models.Product;
 import com.scaler.productservicespringboot.services.FakeStoreProductService;
 import com.scaler.productservicespringboot.services.ProductService;
@@ -18,7 +19,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products/{id}")
-    public ProductResponseDTO getSingleProduct(@PathVariable("id") int id) throws Exception {
+    public ProductResponseDTO getSingleProduct(@PathVariable("id") int id) throws ProductNotFoundException {
         try {
             Product product = productService.getSingleProduct(id);
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
@@ -26,7 +27,7 @@ public class ProductController {
             productResponseDTO.setResponseMessage("Success");
             return productResponseDTO;
         }
-        catch (Exception e) {
+        catch (ProductNotFoundException e) {
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
             productResponseDTO.setProduct(null);
             productResponseDTO.setResponseMessage(e.getMessage());
