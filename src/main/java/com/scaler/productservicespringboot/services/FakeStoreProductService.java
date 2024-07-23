@@ -3,6 +3,8 @@ package com.scaler.productservicespringboot.services;
 import com.scaler.productservicespringboot.dto.FakeStorePOSTResponseDTO;
 import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
 import com.scaler.productservicespringboot.dto.FakeStoreResponseDTO;
+import com.scaler.productservicespringboot.exceptions.DBNotFoundException;
+import com.scaler.productservicespringboot.exceptions.DBTimeOutException;
 import com.scaler.productservicespringboot.exceptions.ProductNotFoundException;
 import com.scaler.productservicespringboot.models.Category;
 import com.scaler.productservicespringboot.models.Product;
@@ -22,16 +24,27 @@ public class FakeStoreProductService implements  ProductService{
     RestTemplate restTemplate;
 
     @Override
-    public Product getSingleProduct(int id) throws ProductNotFoundException {
+    public Product getSingleProduct(int id) throws ProductNotFoundException, DBNotFoundException, DBTimeOutException {
         FakeStoreResponseDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponseDTO.class);
 
         if(response == null){
             throw new ProductNotFoundException("Product id "+ id + " not found");
         }
 
+        connectToDB();
+        executeSQLQuery();
+
         Product product = response.toProduct();
 
         return product;
+    }
+
+    private void connectToDB() throws DBNotFoundException {
+        throw new DBNotFoundException("Database not found");
+    }
+
+    private void executeSQLQuery() throws DBTimeOutException {
+        throw new DBTimeOutException("Database got timed out to execute SQL query");
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.scaler.productservicespringboot.controller;
 
 import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
 import com.scaler.productservicespringboot.dto.ProductResponseDTO;
+import com.scaler.productservicespringboot.exceptions.DBNotFoundException;
+import com.scaler.productservicespringboot.exceptions.DBTimeOutException;
 import com.scaler.productservicespringboot.exceptions.ProductNotFoundException;
 import com.scaler.productservicespringboot.models.Product;
 import com.scaler.productservicespringboot.services.FakeStoreProductService;
@@ -19,7 +21,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products/{id}")
-    public ProductResponseDTO getSingleProduct(@PathVariable("id") int id) throws ProductNotFoundException {
+    public ProductResponseDTO getSingleProduct(@PathVariable("id") int id) {
         try {
             Product product = productService.getSingleProduct(id);
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
@@ -27,10 +29,22 @@ public class ProductController {
             productResponseDTO.setResponseMessage("Success");
             return productResponseDTO;
         }
-        catch (ProductNotFoundException e) {
+        catch (ProductNotFoundException pnfe) {
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
             productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(e.getMessage());
+            productResponseDTO.setResponseMessage(pnfe.getMessage());
+            return productResponseDTO;
+        }
+        catch (DBNotFoundException dbnfe){
+            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+            productResponseDTO.setProduct(null);
+            productResponseDTO.setResponseMessage(dbnfe.getMessage());
+            return productResponseDTO;
+        }
+        catch (DBTimeOutException dbtoe){
+            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+            productResponseDTO.setProduct(null);
+            productResponseDTO.setResponseMessage(dbtoe.getMessage());
             return productResponseDTO;
         }
     }
