@@ -32,19 +32,19 @@ public class ProductController {
         catch (ProductNotFoundException pnfe) {
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
             productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(pnfe.getMessage());
+            productResponseDTO.setResponseMessage(pnfe.getMessage()+" exception type - 1");
             return productResponseDTO;
         }
         catch (DBNotFoundException dbnfe){
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
             productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(dbnfe.getMessage());
+            productResponseDTO.setResponseMessage(dbnfe.getMessage()+" exception type - 2");
             return productResponseDTO;
         }
         catch (DBTimeOutException dbtoe){
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
             productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(dbtoe.getMessage());
+            productResponseDTO.setResponseMessage(dbtoe.getMessage()+" exception type - 3");
             return productResponseDTO;
         }
     }
