@@ -67,19 +67,23 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ListProductsResponseDTO getAllProducts(){
+    public ResponseEntity<ListProductsResponseDTO> getAllProducts(){
         try{
             List<Product> products = productService.getAllProducts();
 
             ListProductsResponseDTO responseDTO = new ListProductsResponseDTO();
             responseDTO.setProductList(products);
             responseDTO.setResponseMessage("Success");
-            return responseDTO;
+
+            ResponseEntity<ListProductsResponseDTO> responseEntity = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+            return responseEntity;
         }catch (Exception e){
             ListProductsResponseDTO responseDTO = new ListProductsResponseDTO();
             responseDTO.setProductList(new ArrayList<>());
             responseDTO.setResponseMessage("Failure");
-            return responseDTO;
+
+            ResponseEntity<ListProductsResponseDTO> responseEntity = new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
+            return responseEntity;
         }
     }
 
