@@ -1,6 +1,7 @@
 package com.scaler.productservicespringboot.controller;
 
 import com.scaler.productservicespringboot.dto.FakeStoreRequestDTO;
+import com.scaler.productservicespringboot.dto.ListProductsResponseDTO;
 import com.scaler.productservicespringboot.dto.ProductResponseDTO;
 import com.scaler.productservicespringboot.exceptions.DBNotFoundException;
 import com.scaler.productservicespringboot.exceptions.DBTimeOutException;
@@ -66,9 +67,20 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProducts(){
-        List<Product> products = productService.getAllProducts();
-        return products;
+    public ListProductsResponseDTO getAllProducts(){
+        try{
+            List<Product> products = productService.getAllProducts();
+
+            ListProductsResponseDTO responseDTO = new ListProductsResponseDTO();
+            responseDTO.setProductList(products);
+            responseDTO.setResponseMessage("Success");
+            return responseDTO;
+        }catch (Exception e){
+            ListProductsResponseDTO responseDTO = new ListProductsResponseDTO();
+            responseDTO.setProductList(new ArrayList<>());
+            responseDTO.setResponseMessage("Failure");
+            return responseDTO;
+        }
     }
 
     @PostMapping("/products")

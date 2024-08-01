@@ -50,7 +50,7 @@ public class FakeStoreProductService implements  ProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        FakeStoreResponseDTO[] responsesArray = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreResponseDTO[].class);
+        FakeStoreResponseDTO[] responsesArray = restTemplate.getForObject("https://fakestoreapi.com/productss", FakeStoreResponseDTO[].class);
 
         List<Product> productList = new ArrayList<Product>();
 
