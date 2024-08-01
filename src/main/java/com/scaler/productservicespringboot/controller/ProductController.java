@@ -9,6 +9,7 @@ import com.scaler.productservicespringboot.models.Product;
 import com.scaler.productservicespringboot.services.FakeStoreProductService;
 import com.scaler.productservicespringboot.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    @Qualifier("FakeStoreProductService")        
     ProductService productService;
 
     @GetMapping("/products/{id}")
