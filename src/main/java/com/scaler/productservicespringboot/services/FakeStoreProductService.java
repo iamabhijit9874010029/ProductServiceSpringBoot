@@ -28,6 +28,7 @@ public class FakeStoreProductService implements  ProductService{
     public Product getSingleProduct(int id) throws ProductNotFoundException, DBNotFoundException, DBTimeOutException {
         FakeStoreResponseDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponseDTO.class);
 
+        //purposefully added to reach the general exception instead of product not found exception when hit 100 as id
         System.out.println(response.getId());
 
         if(response == null){
