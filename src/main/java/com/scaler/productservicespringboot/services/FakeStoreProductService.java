@@ -28,6 +28,8 @@ public class FakeStoreProductService implements  ProductService{
     public Product getSingleProduct(int id) throws ProductNotFoundException, DBNotFoundException, DBTimeOutException {
         FakeStoreResponseDTO response = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreResponseDTO.class);
 
+        System.out.println(response.getId());
+
         if(response == null){
             throw new ProductNotFoundException("Product id "+ id + " not found");
         }
@@ -50,7 +52,7 @@ public class FakeStoreProductService implements  ProductService{
 
     @Override
     public List<Product> getAllProducts() {
-        FakeStoreResponseDTO[] responsesArray = restTemplate.getForObject("https://fakestoreapi.com/productss", FakeStoreResponseDTO[].class);
+        FakeStoreResponseDTO[] responsesArray = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreResponseDTO[].class);
 
         List<Product> productList = new ArrayList<Product>();
 
