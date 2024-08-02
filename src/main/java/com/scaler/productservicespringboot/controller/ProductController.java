@@ -26,8 +26,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<ProductResponseDTO> getSingleProduct(@PathVariable("id") int id) {
-        try {
+    public ResponseEntity<ProductResponseDTO> getSingleProduct(@PathVariable("id") int id) throws DBTimeOutException, DBNotFoundException, ProductNotFoundException {
             Product product = productService.getSingleProduct(id);
             ProductResponseDTO productResponseDTO = new ProductResponseDTO();
             productResponseDTO.setProduct(product);
@@ -36,39 +35,10 @@ public class ProductController {
             ResponseEntity<ProductResponseDTO> responseEntity = new ResponseEntity<>(productResponseDTO, HttpStatus.OK);
 
             return responseEntity;
-        }
-        catch (ProductNotFoundException pnfe) {
-            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-            productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(pnfe.getMessage()+" exception type - 1");
-
-            ResponseEntity<ProductResponseDTO> responseEntity = new ResponseEntity<>(productResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
-            return responseEntity;
-        }
-        catch (DBNotFoundException dbnfe){
-            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-            productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(dbnfe.getMessage()+" exception type - 2");
-
-            ResponseEntity<ProductResponseDTO> responseEntity = new ResponseEntity<>(productResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
-            return responseEntity;
-        }
-        catch (DBTimeOutException dbtoe){
-            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-            productResponseDTO.setProduct(null);
-            productResponseDTO.setResponseMessage(dbtoe.getMessage()+" exception type - 3");
-
-            ResponseEntity<ProductResponseDTO> responseEntity = new ResponseEntity<>(productResponseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
-            return responseEntity;
-        }
     }
 
     @GetMapping("/products")
     public ResponseEntity<ListProductsResponseDTO> getAllProducts(){
-        try{
             List<Product> products = productService.getAllProducts();
 
             ListProductsResponseDTO responseDTO = new ListProductsResponseDTO();
@@ -77,14 +47,6 @@ public class ProductController {
 
             ResponseEntity<ListProductsResponseDTO> responseEntity = new ResponseEntity<>(responseDTO, HttpStatus.OK);
             return responseEntity;
-        }catch (Exception e){
-            ListProductsResponseDTO responseDTO = new ListProductsResponseDTO();
-            responseDTO.setProductList(new ArrayList<>());
-            responseDTO.setResponseMessage("Failure");
-
-            ResponseEntity<ListProductsResponseDTO> responseEntity = new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
-            return responseEntity;
-        }
     }
 
     @PostMapping("/products")
