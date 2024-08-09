@@ -8,9 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-    List<Product> getAllProducts();
-    Product getProductById(int id);
-    Product getProductByNameAndCategory(String productName, String category);
-    List<Product> getProductsByDescription(String description);
+public class ProductRepository {
+    public Product saveProduct(Product product){
+        //connect to mysql db
+        //execute the query, insert into product table
+        return null;
+    }
+    public List<Product> getAllProducts(){
+        //connect to mysql db
+        //execute the query, select all product table
+        return new ArrayList<Product>();
+    }
 }

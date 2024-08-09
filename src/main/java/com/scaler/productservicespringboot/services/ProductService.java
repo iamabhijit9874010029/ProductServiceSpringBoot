@@ -17,4 +17,6 @@ public interface ProductService {
 
     //to create objects in fakestore db
     Product addProduct(FakeStoreRequestDTO fakeStoreRequestDTO);
+
+    List<Product> searchProducts(String searchText);
 }

@@ -6,11 +6,9 @@ import com.scaler.productservicespringboot.dto.FakeStoreResponseDTO;
 import com.scaler.productservicespringboot.exceptions.DBNotFoundException;
 import com.scaler.productservicespringboot.exceptions.DBTimeOutException;
 import com.scaler.productservicespringboot.exceptions.ProductNotFoundException;
-import com.scaler.productservicespringboot.models.Category;
 import com.scaler.productservicespringboot.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -78,6 +76,11 @@ public class FakeStoreProductService implements  ProductService{
         Product product = addProductResponse.toProduct();
 
         return product;
+    }
+
+    @Override
+    public List<Product> searchProducts(String searchText) {
+        return new ArrayList<>();
     }
 
 }
