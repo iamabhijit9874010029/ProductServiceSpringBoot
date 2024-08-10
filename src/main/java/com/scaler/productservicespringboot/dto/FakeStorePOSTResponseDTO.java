@@ -27,7 +27,7 @@ public class FakeStorePOSTResponseDTO {
         Category category = new Category();
         category.setTitle(this.category);
 
-        product.setCategory(category);
+//        product.setCategory(category);
 
         return product;
     }
