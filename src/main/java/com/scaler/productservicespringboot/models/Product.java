@@ -2,6 +2,7 @@ package com.scaler.productservicespringboot.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,6 @@ public class Product extends BaseModel {
     private String description;
     private int price;
     private String imgUrl;
-//    private Category category;
+    @ManyToOne
+    private Category category;
 }
