@@ -14,15 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Product {
-    @Id
-    private int id;
+public class Product extends BaseModel {
     private String name;
     private String description;
     private int price;
     private String imgUrl;
 //    private Category category;
-    private Date createdAt;
-    private Date updatedAt;
-    private Boolean isDeleted;
 }

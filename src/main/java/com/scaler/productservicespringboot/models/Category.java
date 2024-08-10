@@ -14,11 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Category {
-    @Id
-    private int id;
+public class Category extends BaseModel{
     private String title;
-    private Date createdAt;
-    private Date updatedAt;
-    private Boolean isDeleted;
+
 }

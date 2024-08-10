@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FakeStorePOSTResponseDTO {
-    private int id;
+    private long id;
     private String title;
     private int price;
     private String description;
@@ -18,7 +18,7 @@ public class FakeStorePOSTResponseDTO {
     public Product toProduct() {
         Product product = new Product();
 
-        product.setId(this.id);
+        product.setId(Long.valueOf(this.id));
         product.setName(this.title);
         product.setDescription(this.description);
         product.setPrice(this.price);
