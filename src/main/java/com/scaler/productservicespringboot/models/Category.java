@@ -20,6 +20,6 @@ public class Category extends BaseModel{
     private String title;
     //it is the inverse of the same relation between Product and Category
     //telling spring that this attribute is already handled in product table with category column
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+//    @OneToMany(mappedBy = "category")
+//    private List<Product> products;
 }
