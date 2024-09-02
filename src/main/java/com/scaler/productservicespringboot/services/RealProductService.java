@@ -111,4 +111,10 @@ public class RealProductService implements  ProductService{
 
         return filteredProducts;
     }
+
+    @Override
+    public List<Product> getProductsByCategoryTitle(String searchText) {
+        List<Product> products = productRepository.getProductsByCategoryTitle(searchText);
+        return products;
+    }
 }

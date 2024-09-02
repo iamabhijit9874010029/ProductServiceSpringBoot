@@ -24,4 +24,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p")
     List<Product> getAllProducts();
 //    SELECT p.name FROM products p JOIN category c ON p.category_id=c.id AND c.name=categoryName;
+
+    List<Product> getProductsByCategoryTitle(String category);
 }

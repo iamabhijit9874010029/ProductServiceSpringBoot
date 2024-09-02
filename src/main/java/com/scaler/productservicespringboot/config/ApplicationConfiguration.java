@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
+//for createdAt, updatedAt
 @EnableJpaAuditing
 public class ApplicationConfiguration {
 

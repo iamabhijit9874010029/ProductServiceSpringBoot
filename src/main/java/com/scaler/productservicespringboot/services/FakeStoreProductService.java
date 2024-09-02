@@ -83,4 +83,9 @@ public class FakeStoreProductService implements  ProductService{
         return new ArrayList<>();
     }
 
+    @Override
+    public List<Product> getProductsByCategoryTitle(String searchText) {
+        return List.of();
+    }
+
 }

@@ -19,4 +19,6 @@ public interface ProductService {
     Product addProduct(FakeStoreRequestDTO fakeStoreRequestDTO);
 
     List<Product> searchProducts(String searchText);
+
+    List<Product> getProductsByCategoryTitle(String searchText);
 }

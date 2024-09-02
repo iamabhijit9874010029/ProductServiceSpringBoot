@@ -49,6 +49,22 @@ public class ProductController {
             return responseEntity;
     }
 
+    //usiing requestparam
+    @GetMapping("/search")
+    //localhost:8000/search?catName=searchTxt
+    public List<Product> getProductsByCategoryTitle(@RequestParam("catName") String searchTxt) {
+        List<Product> products = productService.getProductsByCategoryTitle(searchTxt);
+        return products;
+    }
+
+    //using pathvariable
+//    @GetMapping("/search/catName/{catNameText}")
+//    //localhost:8000/search?catName=searchTxt
+//    public List<Product> getProductsByCategoryTitle(@PathVariable("catNameText") String searchTxt) {
+//        List<Product> products = productService.getProductsByCategoryTitle(searchTxt);
+//        return products;
+//    }
+
     @PostMapping("/products")
     public Product addProduct(@RequestBody Product product){
         Product saveProduct = productService.addProduct(product);
